@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping(value = "/")
 public class HomeController {
 
     @Autowired
@@ -27,15 +26,15 @@ public class HomeController {
     @RequestMapping(method = RequestMethod.GET, value = "/register")
     public String create(Model model) {
         model.addAttribute("student", new Student());
-        return "/register";
+        return "register";
     }
-    @RequestMapping(method = RequestMethod.POST, value = "/create")
+    @RequestMapping(method = RequestMethod.POST, value = "/register")
     public String store(Model model, @Valid Student student, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("hero", student);
-            return "hero/form";
+            model.addAttribute("student", student);
+            return "register";
         }
         studentService.addStudent(student);
-        return "redirect:/student";
+        return "redirect:/login";
     }
 }

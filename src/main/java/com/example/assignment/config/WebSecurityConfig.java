@@ -17,12 +17,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     @Bean
-    PasswordEncoder passwordEncoder(){
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    protected UserDetailsService userDetailsService(){
-        return  new MyUserDetailService();
+    @Bean
+    protected UserDetailsService userDetailsService() {
+        return new MyUserDetailService();
     }
 
     @Override
@@ -33,12 +34,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-        .mvcMatchers("/","/home").permitAll()
-        .and()
-        .formLogin()
-        .loginPage("/login")
-        .permitAll()
-        .and()
-        .logout().permitAll();
+                .mvcMatchers("/register", "/login").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
+                .loginPage("/login")
+                .permitAll()
+                .and()
+                .logout()
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessUrl("/login")
+                .clearAuthentication(true).permitAll();
     }
 }

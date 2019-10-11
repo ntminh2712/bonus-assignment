@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = "/student")
+@RequestMapping(value = {"/student"})
 public class StudentController {
 
 

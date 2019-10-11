@@ -24,9 +24,10 @@ public class Student {
     @NotNull(message = "Email can not be null or empty!")
     @Email(message = "Invalid email")
     private String email;
-    @NotNull(message = "Name can not be null or empty!")
-    @Size(min = 5, max = 30, message = "Name length must be 5 - 30 characters.")
+
+    @NotNull(message = "Pasword can not be null or empty!")
     private String password;
+
     @ManyToMany(mappedBy = "studentSet",
             cascade = {CascadeType.PERSIST, CascadeType.MERGE,
                     CascadeType.REFRESH}, fetch = FetchType.LAZY)
@@ -36,6 +37,14 @@ public class Student {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getRollNumber() {

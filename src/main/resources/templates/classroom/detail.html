@@ -1,13 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-<h1>Student Detail</h1>
-<p th:text="${student.rollNumber}"></p>
-<p th:text="${student.Name}"></p>
-<p th:text="${student.email}"></p>
+<h1>Classroom</h1>
+<ul>
+        <span th:text="${classroom.name}"></span>
+</ul>
+<table>
+    <tr>
+        <th>Rollnumber</th>
+        <th>Name</th>
+        <th>Email</th>
+    </tr>
+    <tr th:each="student: ${classroom.getStudentSet()}">
+        <td th:text="${student.rollNumber}"></td>
+        <td th:text="${student.name}"></td>
+        <td th:text="${student.email}"></td>
+    </tr>
+</table>
+<form th:action="@{/class/add}" method="post">
+    <div th:each="student: ${studentList}">
+        <input type="checkbox" name="id" th:value="${student.id}" th:text="${student.name}" />
+    </div>
+    <button type="submit">submit</button>
+</form>
 </body>
 </html>
